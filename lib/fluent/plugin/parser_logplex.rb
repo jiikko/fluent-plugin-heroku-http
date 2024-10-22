@@ -33,10 +33,7 @@ module Fluent
 
         records =
           text.split("\n").map do |line|
-
             m = line.match(expression)
-
-            puts("raw line is `#{line}`, line.match(expression) is `#{m}`")
 
             m.names.each_with_object({}) do |name, record|
               record[name] = m[name]
