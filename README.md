@@ -1,3 +1,7 @@
+NOTE: https://github.com/ubiregiinc/ubiregi-logs/issues/14 のためにforkしました
+
+--
+
 # fluent-plugin-heroku-http
 
 [![Gem Version](https://badge.fury.io/rb/fluent-plugin-heroku-http.svg)](https://badge.fury.io/rb/fluent-plugin-heroku-http)
