@@ -1,5 +1,7 @@
 require 'rubygems'
 require 'bundler'
+require 'pry'
+
 begin
   Bundler.setup(:default, :development)
 rescue Bundler::BundlerError => e
@@ -13,6 +15,7 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 
 require 'fileutils'
+require 'fluent/version'
 require 'fluent/log'
 require 'fluent/test'
 

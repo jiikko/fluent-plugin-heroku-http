@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.homepage      = 'https://github.com/ApplauseOSS/fluent-plugin-heroku-http'
   gem.license       = 'APLv2'
 
-  gem.files         = `git ls-files`.split($OUTPUT_RECORD_SEPARATOR)
+  gem.files         = `git ls-files`.split("\n")
   gem.executables   = gem.files.grep(%r{^bin/}).map { |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ['lib']
