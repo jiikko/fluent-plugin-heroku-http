@@ -44,6 +44,50 @@ class HerokuHttpInputTest < Test::Unit::TestCase
     assert_equal d.instance.drain_ids, ['abc']
   end
 
+  def test_pid_with_hyphen
+    d = create_driver
+    time_parser = Fluent::TimeParser.new
+
+    tests = [
+      '59 <13>1 2014-01-29T06:25:52.589365+00:00 host app high-worker.1 - foo',
+    ]
+    d.run(expect_records: 1) do
+      res = post(tests)
+      assert_equal '200', res.code
+    end
+
+    assert_equal d.events[0], ['heroku', time_parser.parse('2014-01-29T06:25:52.589365+00:00'), {
+      'drain_id' => 'd.fc6b856b-3332-4546-93de-7d0ee272c3bd',
+      'ident' => 'app',
+      'pid' => 'high-worker.1',
+      'message' => 'foo',
+      'facility' => 'user',
+      'priority' => 'notice'
+    }]
+  end
+
+  def test_pid_with_underscore
+    d = create_driver
+    time_parser = Fluent::TimeParser.new
+
+    tests = [
+      '59 <13>1 2014-01-29T06:25:52.589365+00:00 host app high_worker.1 - foo',
+    ]
+    d.run(expect_records: 1) do
+      res = post(tests)
+      assert_equal '200', res.code
+    end
+
+    assert_equal d.events[0], ['heroku', time_parser.parse('2014-01-29T06:25:52.589365+00:00'), {
+      'drain_id' => 'd.fc6b856b-3332-4546-93de-7d0ee272c3bd',
+      'ident' => 'app',
+      'pid' => 'high_worker.1',
+      'message' => 'foo',
+      'facility' => 'user',
+      'priority' => 'notice'
+    }]
+  end
+
   def test_time_format
     d = create_driver
     time_parser = Fluent::TimeParser.new
